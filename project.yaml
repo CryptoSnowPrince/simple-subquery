@@ -30,3 +30,8 @@ dataSources:
           filter:
             topics:
               - Hello(address sender, uint256 hi)
+        - handler: handleWhereEvent
+          kind: substrate/MoonbeamEvent
+          filter:
+            topics:
+              - Where(address here, address there)

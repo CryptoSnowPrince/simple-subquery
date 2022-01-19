@@ -6,3 +6,12 @@ type Hello @entity {
 
   hi: BigInt!
 }
+
+type Where @entity {
+
+  id: ID! # Transaction hash
+
+  here: String!
+
+  there: String!
+}
