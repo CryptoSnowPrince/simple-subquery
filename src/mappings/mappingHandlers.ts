@@ -1,29 +1,15 @@
-import {Approval, Transaction} from "../types";
-import { MoonbeamEvent, MoonbeamCall } from '@subql/contract-processors/dist/moonbeam';
+import {Hello} from "../types";
+import { MoonbeamEvent } from '@subql/contract-processors/dist/moonbeam';
 import { BigNumber } from "ethers";
 
 // Setup types from ABI
-type TransferEventArgs = [string, string, BigNumber] & { from: string; to: string; value: BigNumber; };
-type ApproveCallArgs = [string, BigNumber] & { _spender: string; _value: BigNumber; }
+type HelloEventArgs = [string, BigNumber] & { sender: string; hi: BigNumber; };
 
-export async function handleMoonriverEvent(event: MoonbeamEvent<TransferEventArgs>): Promise<void> {
-    const transaction = new Transaction(event.transactionHash);
+export async function handleHelloEvent(event: MoonbeamEvent<HelloEventArgs>): Promise<void> {
+    const hello = new Hello(event.transactionHash);
 
-    transaction.value = event.args.value.toBigInt();
-    transaction.from = event.args.from;
-    transaction.to = event.args.to;
-    transaction.contractAddress = event.address;
+    hello.hi = event.args.hi.toBigInt();
+    hello.sender = event.args.sender;
 
-    await transaction.save();
-}
-
-export async function handleMoonriverCall(event: MoonbeamCall<ApproveCallArgs>): Promise<void> {
-    const approval = new Approval(event.hash);
-
-    approval.owner = event.from;
-    approval.value = event.args._value.toBigInt();
-    approval.spender = event.args._spender;
-    approval.contractAddress = event.to;
-
-    await approval.save();
+    await hello.save();
 }

@@ -25,19 +25,8 @@ dataSources:
     mapping:
       file: ./dist/index.js
       handlers:
-        - handler: handleMoonriverEvent
+        - handler: handleHelloEvent
           kind: substrate/MoonbeamEvent
           filter:
             topics:
-              - Transfer(address indexed from,address indexed to,uint256 value)
-              - null
-              - null
-              - null
-        - handler: handleMoonriverCall
-          kind: substrate/MoonbeamCall
-          filter:
-            function: approve(address to,uint256 value)
-        - handler: handleMoonriverCall
-          kind: substrate/MoonbeamCall
-          filter:
-            function: approve(address to,uint256 value)
+              - Hello(address sender, uint256 hi)
